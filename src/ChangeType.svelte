@@ -25,7 +25,7 @@
 
   button {
     justify-content: center;
-    background-color: hsl(0, 0%, 13%);
+    background-color: transparent;
     border: none;
     cursor: pointer;
     opacity: 1;
