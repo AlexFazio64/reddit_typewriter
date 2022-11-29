@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { theme, font } from "./stores";
   import Author from "./Author.svelte";
   import ChangeTheme from "./ChangeTheme.svelte";
   import ChangeType from "./ChangeType.svelte";
@@ -37,18 +38,52 @@
   });
 </script>
 
+{#if $theme == "dark"}
+  <style>
+    :root {
+      /* dark */
+      --color: white;
+      --bg-color: hsl(0, 0%, 13%);
+      --bg-color-hover: hsl(0, 0%, 17%);
+      --bg-scroll: hsl(0, 0%, 30%);
+    }
+  </style>
+{:else}
+  <style>
+    :root {
+      /* light */
+      --color: hsl(0, 0%, 13%);
+      --bg-color: white;
+      --bg-color-hover: hsl(0, 0%, 90%);
+      --bg-scroll: hsl(0, 0%, 70%);
+    }
+  </style>
+{/if}
+
+{#if $font == "Roboto Serif"}
+  <style>
+    :root {
+      --font: "Roboto Serif", monospace;
+    }
+  </style>
+{:else}
+  <style>
+    :root {
+      --font: "Freehand", serif;
+    }
+  </style>
+{/if}
+
 <nav>
   <ChangeType />
   <ChangeTheme />
 </nav>
 
-<p>
-  {typed}
-</p>
+<p>{typed}</p>
 <div id="anchor" />
 
 <footer>
-  <Author />
+  <Author user="u/AlexFazio64" />
 </footer>
 
 <style>
@@ -57,6 +92,7 @@
     line-height: 1.25em;
     justify-content: center;
     word-spacing: normal;
+    font-family: var(--font);
   }
 
   nav {
@@ -81,12 +117,11 @@
     bottom: 0;
     right: 0;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr;
 
-    gap: 0.5em;
+    gap: 0.5em 1em;
 
     border-radius: 0.5em 0 0 0;
 
@@ -96,8 +131,8 @@
 
   nav:hover,
   footer:hover {
-    background-color: hsl(0, 0%, 13%);
-    box-shadow: 0px 0px 10px 25px hsl(0, 0%, 13%);
+    background-color: var(--bg-color);
+    box-shadow: 0px 0px 10px 25px var(--bg-color);
     opacity: 1;
   }
 </style>

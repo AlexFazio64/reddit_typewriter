@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Freehand&family=Roboto+Serif:opsz,wght@8..144,200&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -6,16 +7,16 @@
 
 :root {
   scroll-behavior: smooth;
-  font-family: "Roboto Serif", "Freehand", cursive, serif;
 }
 
 body {
   width: 100%;
+  min-width: 500px;
   min-height: 100vh;
   height: 100%;
 
-  background-color: hsl(0, 0%, 13%);
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--color);
 
   box-sizing: border-box;
   padding: 7%;
@@ -31,5 +32,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(0, 0%, 30%);
+  background-color: var(--bg-scroll);
 }
