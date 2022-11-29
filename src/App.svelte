@@ -5,7 +5,7 @@
   import SettingsBar from "./SettingsBar.svelte";
 
   const lorem: string =
-    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde, aliquam! Voluptatum quas quasi, odit quibusdam, corporis cupiditate quam at rem assumenda, modi voluptate atque facere similique molestiae ratione optio dicta ut eaque dolorem consequatur amet. Aspernatur qui iure dolor iste necessitatibus commodi facere ipsam minus beatae laudantium ratione, numquam quo magni ipsum porro, et eos. Facilis libero distinctio possimus, perferendis est ipsam, beatae iste dolores cumque quam aliquam mollitia minima velit suscipit modi harum blanditiis maiores deserunt exercitationem asperiores! Ipsum delectus harum consequatur hic quod nam ducimus dignissimos quibusdam maiores iusto non rerum excepturi aperiam iure ratione laboriosam laborum aut, omnis error. Sapiente accusamus quae cumque possimus suscipit placeat, eaque vel debitis perspiciatis sit hic facilis omnis ab saepe nihil numquam dolores optio id voluptate soluta recusandae. Temporibus recusandae sequi vero minima eveniet laboriosam sunt fugit unde architecto id. Autem, assumenda eaque corrupti et culpa repellat quo, exercitationem incidunt itaque corporis amet, ipsam quam aliquam doloremque nulla sit voluptate facere. Obcaecati provident dolore, quas nesciunt consequuntur nam maiores odio nobis ex dicta reprehenderit non itaque. Nisi ducimus ab quaerat perferendis dolores repellendus consectetur officia, eaque natus sit aspernatur quo numquam debitis, quidem excepturi rem iusto, libero quisquam. Unde laudantium hic necessitatibus beatae, aliquid placeat consequatur laborum fugiat, rem, dolorem cumque odio dolore voluptates perferendis vero neque harum molestias maiores officiis! Quibusdam amet recusandae accusantium labore sequi blanditiis explicabo, quas commodi quidem quo asperiores doloremque sapiente voluptate exercitationem temporibus, atque alias at est molestias, ad assumenda dicta? Laborum ea officia, obcaecati recusandae porro praesentium nisi delectus beatae odit! Amet tempora fugiat error eveniet corrupti, suscipit est adipisci, velit quibusdam magnam non accusamus mollitia soluta libero aperiam expedita atque debitis molestiae rem incidunt laudantium. Dolorem culpa voluptas eum enim harum quibusdam quidem veniam atque a esse obcaecati autem iusto unde, exercitationem asperiores, expedita nostrum magnam nesciunt neque corporis quisquam, mollitia nisi. Repellat cum atque corporis ut, tempore veritatis nam sunt laudantium? Impedit porro nam natus odio labore, quibusdam iure illum vero debitis eveniet maiores dolor illo reprehenderit unde, eaque esse ut? Ab doloribus eum itaque incidunt quidem molestiae, fugiat ullam, eaque officiis porro ipsum nulla sequi inventore vel dolores natus, quam nostrum excepturi. Iste nisi blanditiis voluptas eum praesentium adipisci eaque cum quas, a, reiciendis perferendis sapiente corporis! Totam excepturi dolor dolorem doloribus quis accusantium nihil repudiandae, dolores iure, natus saepe cupiditate incidunt a neque in soluta rerum alias expedita? Enim, beatae.";
+    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde, aliquam! Voluptatum quas quasi, odit quibusdam, corporis cupiditate quam at rem assumenda, modi voluptate atque facere similique molestiae ratione optio dicta ut eaque dolorem consequatur amet.";
   let typed: string = "";
 
   const type = async () => {
@@ -27,6 +27,16 @@
     }
   };
 
+  const getPost = async () => {
+    const response = await fetch("http://localhost:3004/posts/?id=1");
+    const data = await response.text();
+
+    if (response.ok) {
+      const json = JSON.parse(data)[0];
+      return json;
+    }
+  };
+
   onMount(() => {
     const obs = new ResizeObserver(() =>
       document.getElementById("anchor").scrollIntoView()
@@ -35,6 +45,13 @@
     type();
   });
 </script>
+
+{#await getPost()}
+  <p>loading</p>
+{:then json}
+  <h1>{json.title}</h1>
+  <br />
+{/await}
 
 <Prefs />
 <SettingsBar />
@@ -45,8 +62,13 @@
 <Author user="u/AlexFazio64" />
 
 <style>
-  p {
+  h1 {
+    align-self: start;
+    font-family: var(--font);
     font-size: 3em;
+  }
+  p {
+    font-size: 2.5em;
     line-height: 1.25em;
     justify-content: center;
     word-spacing: normal;

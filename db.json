@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "user": "u/username",
+      "title": "Lorem ipsum dolor sit amet...",
+      "post": "json-server",
+      "link": "link-to-post"
+    },
+    {
+      "id": "2",
+      "user": "u/username1",
+      "title": "Lorem ipsum dolor sit amet...",
+      "post": "json-server",
+      "link": "link-to-post"
+    },
+    {
+      "id": "3",
+      "user": "u/username2",
+      "title": "Lorem ipsum dolor sit amet...",
+      "post": "json-server",
+      "link": "link-to-post"
+    },
+    {
+      "id": "4",
+      "user": "u/username3",
+      "title": "Lorem ipsum dolor sit amet...",
+      "post": "json-server",
+      "link": "link-to-post"
+    }
+  ]
+}
